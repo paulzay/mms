@@ -6,18 +6,18 @@ import { loginSuccess, loginFailure } from '../redux/userReducer';
 
 function Login() {
   const [password, setPassword] = useState('');
-  const [username, setUserName] = useState('');
+  const [email, setEmail] = useState('')
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch('http://localhost:8000/auth/login', {
+    fetch('http://localhost:8000/users/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ email, password })
     }).then(res => res.json())
       .then(data => {
         if (data.error) {
@@ -42,8 +42,8 @@ function Login() {
         <h2 className="text-3xl font-bold text-black mb-6 text-center" >Login</h2>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="w-full flex flex-col">
-            <label className='mt-4 text-start' htmlFor="username">Username</label>
-            <input className='mt-2 p-2 border-2 rounded-sm' value={username} type="username" placeholder="Username" onChange={(e) => setUserName(e.target.value)} />
+            <label className='mt-4 text-start' htmlFor="email">Email</label>
+            <input className='mt-2 p-2 border-2 rounded-sm' value={email} type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="w-full flex flex-col">
             <label className='mt-4 text-start' htmlFor="password">Password</label>

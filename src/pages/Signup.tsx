@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 // import { useSelector, useDispatch } from 'react-redux'
 // import { RootState } from '../redux/store'
 
@@ -9,23 +9,23 @@ function Signup() {
   const [email, setEmail] = useState('');
   const [dob, setDob] = useState('');
   const [role, setRole] = useState('user');
-  const [profilePicture, setProfilePicture] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch('http://localhost:8000/auth/register', {
+    fetch('http://localhost:8000/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, email, dob, role, profilePicture, password })
+      body: JSON.stringify({ username, email, dob, role, password })
     }).then(res => res.json()).then(data => {
       if (data.error) {
         alert(data.error);
         return;
       } else {
-        redirect('/login');
+        navigate('/login');
       }
     }).catch(err => {
       console.log(err);
@@ -60,10 +60,17 @@ function Signup() {
             </select>
           </div>
 
-          <div className="w-full flex flex-col">
+          {/* <div className="w-full flex flex-col">
             <label className='mt-4 text-start' htmlFor="avatar">Profile Picture</label>
-            <input className='mt-2 p-2 border-2 rounded-sm' value={profilePicture} type="file" placeholder="Profile Picture" onChange={(e) => setProfilePicture(e.target.value)} />
-          </div>
+            <input className='mt-2 p-2 border-2 rounded-sm' type="file" placeholder="Profile Picture" onChange={(e) => {
+                if (e.target.files && e.target.files.length > 0) {
+    
+                setProfilePicture(e.target.files[0]);
+                } else {
+                setProfilePicture(undefined);
+                }
+            }} />
+          </div> */}
 
           <div className="w-full flex flex-col">
             <label className='mt-4 text-start' htmlFor="password">Password</label>
