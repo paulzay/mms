@@ -1,6 +1,13 @@
 # Member Management System
 
-# Getting Started 🚀
+## Built with
+
+* Vite
+* React
+* React Router
+* Tailwind CSS
+
+## Getting Started 🚀
 
 These instructions will get you a copy of the project up and running on your local machine.
 
