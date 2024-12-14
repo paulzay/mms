@@ -5,9 +5,11 @@ import Signup from './pages/Signup';
 import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import Navbar from "./components/Navbar";
-// import { AuthProvider } from './context/AuthContext';
+import ActivityLog from "./pages/ActivityLog";
 // import { ToastContainer } from 'react-toastify';
 import './App.css'
+import Profile from "./pages/Profile";
+import Members from "./pages/Members";
 
 function App() {
   return (
@@ -19,12 +21,12 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/about' element={<About />} />
+        <Route path='/activity-log' element={<ActivityLog />} />
+        <Route path='/members' element={<Members />} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='*' element={<div>404</div>} />
       </Routes>
     </BrowserRouter>
-    // <AuthProvider>
-    //   <ToastContainer />
-
-    // </AuthProvider>
   )
 }
 

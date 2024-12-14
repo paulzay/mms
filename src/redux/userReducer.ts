@@ -10,6 +10,8 @@ const userReducerSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.user = null;
+      state.loggedIn = false;
+      state.token = null;
     },
     loginSuccess: (state, action) => {
       state.user = action.payload.user;

@@ -8,6 +8,7 @@ import Search from "./Search";
 
 function Navbar() {
   const loggedIn = useSelector((state: RootState) => state.user.loggedIn);
+  const user = useSelector((state: RootState) => state.user.user) as unknown as { avatar?: string };
   const [openMenu, setOpenMenu] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const dispatch = useDispatch();
@@ -26,6 +27,24 @@ function Navbar() {
     }
   }
 
+  const handelClick = () => {
+    setOpenMenu(!openMenu);
+  }
+
+  // const handleClickOutside = (event: MouseEvent) => {
+  //   const target = event.target as HTMLElement;
+  //   if (!target.closest('.profile-menu') && !target.closest('.w-10.h-10.rounded-full.ml-2.cursor-pointer')) {
+  //     setOpenMenu(false);
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, []);
+
   return (
     <nav className='flex justify-between w-full p-5 bg-white shadow-lg sticky text-black top-0 left-0'>
       <h2 className='p-2'>MSM</h2>
@@ -34,10 +53,11 @@ function Navbar() {
           loggedIn ?
             <>
               <NavLink to="/dashboard" className='p-2'>Dashboard</NavLink>
-              <NavLink to="/about" className='p-2'>About</NavLink>
+              <NavLink to="/activity-log" className="p-2">Activity Log</NavLink>
+              {/* <NavLink to="/about" className='p-2'>About</NavLink> */}
               <NavLink to="/members" className='p-2'>Members</NavLink>
               <Search query={searchInput} onChange={(e) => setSearchInput(e.target.value)} onKeyUp={handleSearch} />
-              <img src={penguin} alt="profile" className='w-10 h-10 rounded-full ml-2 cursor-pointer' onClick={() => setOpenMenu(!openMenu)} />
+              <img src={user.avatar ? user.avatar : penguin} alt="profile" className='w-10 h-10 rounded-full ml-2 cursor-pointer' onClick={handelClick} />
               {openMenu && <div className='absolute flex flex-col top-14 right-0 bg-white shadow-lg rounded-lg p-2'>
                 <NavLink to="/profile" className='p-2'>Profile</NavLink>
                 <button type="button" className='p-2 bg-transparent' onClick={handleLogout}>Logout</button>
